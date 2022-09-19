@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameState : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameState : MonoBehaviour
     [SerializeField] float distanceBetweenFloors = 10.0f;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] Image healthBar;
+    [SerializeField] GameObject gameOver;
 
     float levelSpeedMain = 5;
 
@@ -30,6 +32,11 @@ public class GameState : MonoBehaviour
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
+
         levelSpeedMain = levelSpeedBase + (currentFloorCount / 30);
         float step = levelSpeedMain * Time.deltaTime;
         distanceSinceLastFloor += step;
@@ -39,9 +46,9 @@ public class GameState : MonoBehaviour
             IncrementCurrentFloor();
         }
 
-        if(playerHealth <= 0)
+        if(playerHealth <= 0 && gameOver.activeSelf == false)
         {
-            Debug.Log("GAME OVER!");
+            gameOver.SetActive(true);
         }
     }
 
