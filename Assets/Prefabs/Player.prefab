@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 661908074864239498}
   - component: {fileID: 661908074864239499}
   - component: {fileID: 661908074864239500}
-  - component: {fileID: 661908074864239496}
-  - component: {fileID: 7022681959419290690}
+  - component: {fileID: 4927731251137750665}
+  - component: {fileID: 5667622864707979442}
+  - component: {fileID: 437326335458771902}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -60,7 +61,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!222 &661908074864239499
 CanvasRenderer:
@@ -100,7 +101,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!65 &661908074864239496
+--- !u!114 &4927731251137750665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 661908074864239501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118775139e575f64fae52e7b93d936ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 437326335458771902}
+--- !u!65 &5667622864707979442
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,7 +127,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 7, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &7022681959419290690
+--- !u!54 &437326335458771902
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,5 +141,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 120
   m_CollisionDetection: 0

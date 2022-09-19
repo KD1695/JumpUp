@@ -12,7 +12,7 @@ public class GameState : MonoBehaviour
     float distance = 0.0f;
     float distanceSinceLastFloor = 0;
     int currentFloorCount = 0;
-    float playerSpeed = 0.0f;
+    public float playerSpeed = 0.0f;
     
     [SerializeField] float levelSpeed = 5.0f;
     [SerializeField] float distanceBetweenFloors = 10.0f;

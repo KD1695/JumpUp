@@ -7,8 +7,9 @@ public class LedgeSpawner : MonoBehaviour
 {
     [SerializeField] Ledge ledgePrefab;
     [SerializeField] RectTransform parent;
+    [SerializeField] Transform finish;
 
-    private List<Ledge> ledgePool = new List<Ledge>();
+    [SerializeField] private List<Ledge> ledgePool = new List<Ledge>();
 
     void Start()
     {
@@ -17,29 +18,22 @@ public class LedgeSpawner : MonoBehaviour
 
     private void Update()
     {
-
-    }
-
-    public void AddToPool(Ledge ledgeObject)
-    {
-        ledgePool.Add(ledgeObject);
+        foreach(var ledgeObj in ledgePool)
+        {
+            if(ledgeObj.transform.position.y < finish.position.y)
+            {
+                ledgeObj.SetIsTaken(false);
+            }
+        }
     }
 
     public void GenerateLedge(int currentFloor)
     {
         Ledge ledgeObject;
-        float width = 0.0f;
-        if (currentFloor % 10 == 0)
-        {
-            width = parent.rect.xMax;
-        }
-        else
-        {
-            width = Random.Range(20, 50);
-        }
+        float width = Random.Range(20, 75);
 
         Vector3 position = new Vector3(Random.Range((parent.rect.xMin + width / 2), (parent.rect.xMax - width / 2)), 0, 0);
-        if (ledgePool.Any(_ => !_.IsTaken()))
+         if (ledgePool.Any(_ => !_.IsTaken()))
         {
             ledgeObject = ledgePool.FirstOrDefault(_ => !_.IsTaken());
         }
@@ -51,7 +45,6 @@ public class LedgeSpawner : MonoBehaviour
         ledgeObject.transform.localPosition = position;
         ledgeObject.gameObject.SetActive(false);
         ledgeObject.SetIsTaken(true);
-        ledgeObject.SetSpeed(GameState.Instance.GetSpeed());
         ledgeObject.SetWidth(width);
 
         ledgeObject.gameObject.SetActive(true);
