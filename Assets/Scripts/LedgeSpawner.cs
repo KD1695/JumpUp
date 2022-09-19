@@ -38,7 +38,7 @@ public class LedgeSpawner : MonoBehaviour
             width = Random.Range(20, 50);
         }
 
-        Vector3 position = new Vector3(Random.Range((parent.rect.xMin + width / 2), (parent.rect.xMax - width / 2)), parent.position.y, 0);
+        Vector3 position = new Vector3(Random.Range((parent.rect.xMin + width / 2), (parent.rect.xMax - width / 2)), 0, 0);
         if (ledgePool.Any(_ => !_.IsTaken()))
         {
             ledgeObject = ledgePool.FirstOrDefault(_ => !_.IsTaken());
