@@ -29,6 +29,22 @@ public class PlayerControls : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Finish")
-            Debug.Log("END!!!!!!!!!!!!!!!");
+        {
+            GameState.Instance.ModifyPlayerHealth(-400);
+        }
+        else if(other.tag == "Health")
+        {
+            GameState.Instance.ModifyPlayerHealth(15);
+            other.gameObject.SetActive(false);
+        }
+        else
+        {
+            GameState.Instance.ModifyPlayerHealth(-10);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameState.Instance.ModifyPlayerHealth(-10);
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Ledge : MonoBehaviour
 {
     [SerializeField] bool isTaken = false;
-
     [SerializeField] BoxCollider topCollider;
+    [SerializeField] GameObject health;
 
     void Start()
     {
@@ -32,6 +32,10 @@ public class Ledge : MonoBehaviour
     public void SetIsTaken(bool _isTaken)
     {
         isTaken = _isTaken;
+        if (Random.Range(0, 10) < 2 && _isTaken)
+            health.SetActive(_isTaken);
+        else
+            health.SetActive(false);
         this.gameObject.SetActive(_isTaken);
     }
     public bool IsTaken()

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameState : MonoBehaviour
 {
@@ -9,14 +11,18 @@ public class GameState : MonoBehaviour
     [SerializeField] LedgeSpawner LedgeSpawner;
 
     //Game state variables
-    float distance = 0.0f;
     float distanceSinceLastFloor = 0;
     int currentFloorCount = 0;
-    public float playerSpeed = 0.0f;
+    float playerHealth = 100;
     
-    [SerializeField] float levelSpeed = 5.0f;
+    [SerializeField] float levelSpeedBase = 5.0f;
     [SerializeField] float distanceBetweenFloors = 10.0f;
-    
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] Image healthBar;
+
+    float levelSpeedMain = 5;
+
+
     void Start()
     {
         Instance = this;
@@ -24,23 +30,38 @@ public class GameState : MonoBehaviour
 
     void Update()
     {
-        float step = Mathf.Max(playerSpeed, levelSpeed) * Time.deltaTime;
-        distance += step;
+        levelSpeedMain = levelSpeedBase + (currentFloorCount / 30);
+        float step = levelSpeedMain * Time.deltaTime;
         distanceSinceLastFloor += step;
         if(distanceSinceLastFloor >= distanceBetweenFloors || currentFloorCount == 0)
         {
             distanceSinceLastFloor = 0;
-            LedgeSpawner.GenerateLedge(currentFloorCount);
-            currentFloorCount++;
+            IncrementCurrentFloor();
+        }
+
+        if(playerHealth <= 0)
+        {
+            Debug.Log("GAME OVER!");
         }
     }
 
-    public float GetDistance()
-    {
-        return distance;
-    }
     public float GetSpeed()
     {
-        return Mathf.Max(levelSpeed, playerSpeed);
+        return levelSpeedMain;
+    }
+
+    private void IncrementCurrentFloor()
+    {
+        LedgeSpawner.GenerateLedge(currentFloorCount);
+        currentFloorCount++;
+        scoreText.text = "Floor : " + currentFloorCount;
+    }
+
+    public void ModifyPlayerHealth(float valueChange)
+    {
+        playerHealth += valueChange;
+        playerHealth = playerHealth <= 0 ? 0 : playerHealth;
+        playerHealth = playerHealth > 400 ? 400 : playerHealth;
+        healthBar.rectTransform.sizeDelta = new Vector2(playerHealth * 4, healthBar.rectTransform.rect.size.y);
     }
 }
