@@ -10,7 +10,7 @@ public class Ledge : MonoBehaviour
 
     void Start()
     {
-        
+        SetWidth(this.GetComponent<RectTransform>().sizeDelta.x);
     }
 
     void Update()
@@ -26,7 +26,7 @@ public class Ledge : MonoBehaviour
     {
         float height = this.GetComponent<RectTransform>().sizeDelta.y;
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
-        topCollider.size = new Vector3(width, height / 2);
+        topCollider.size = new Vector3(width, height);
     }
 
     public void SetIsTaken(bool _isTaken)
