@@ -5,12 +5,6 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class PlayerState
-{
-    public float playerHealth = 100;
-    public float jumpForceMultiplier = 1;
-}
-
 public class GameState : MonoBehaviour
 {
     [SerializeField] LedgeSpawner LedgeSpawner;
@@ -78,7 +72,11 @@ public class GameState : MonoBehaviour
 
     public void UpdatePlayerState(PlayerState _playerState)
     {
-        playerState = _playerState;
+        playerState.jumpForceMultiplier += _playerState.jumpForceMultiplier;
+        if (playerState.jumpForceMultiplier < 1)
+            playerState.jumpForceMultiplier = 1;
+        if (_playerState.replaceHealth)
+            playerState.playerHealth = _playerState.playerHealth;
     }
 
     public float JumpForceMultiplier()

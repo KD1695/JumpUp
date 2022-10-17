@@ -52,10 +52,8 @@ public class LedgeSpawner : MonoBehaviour
         foreach (var powerUp in powerUps)
         {
             float prob = Random.Range(0f, 0.999f);
-            Debug.Log(prob + " " + powerUp.SpawnProbability);
             if(prob <= powerUp.SpawnProbability)
             {
-
                 var power = GameObject.Instantiate(powerUp, ledgeObject.PowerUpParent());
                 power.SetGameState(gameState);
             }
