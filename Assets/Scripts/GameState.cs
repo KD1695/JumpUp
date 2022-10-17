@@ -5,16 +5,20 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+public class PlayerState
+{
+    public float playerHealth = 100;
+    public float jumpForceMultiplier = 1;
+}
+
 public class GameState : MonoBehaviour
 {
-    public static GameState Instance;
-
     [SerializeField] LedgeSpawner LedgeSpawner;
 
     //Game state variables
     float distanceSinceLastFloor = 0;
     int currentFloorCount = 0;
-    float playerHealth = 100;
+    PlayerState playerState = new PlayerState();
     
     [SerializeField] float levelSpeedBase = 5.0f;
     [SerializeField] float distanceBetweenFloors = 10.0f;
@@ -27,7 +31,7 @@ public class GameState : MonoBehaviour
 
     void Start()
     {
-        Instance = this;
+
     }
 
     void Update()
@@ -46,7 +50,7 @@ public class GameState : MonoBehaviour
             IncrementCurrentFloor();
         }
 
-        if(playerHealth <= 0 && gameOver.activeSelf == false)
+        if(playerState.playerHealth <= 0 && gameOver.activeSelf == false)
         {
             gameOver.SetActive(true);
         }
@@ -66,9 +70,19 @@ public class GameState : MonoBehaviour
 
     public void ModifyPlayerHealth(float valueChange)
     {
-        playerHealth += valueChange;
-        playerHealth = playerHealth <= 0 ? 0 : playerHealth;
-        playerHealth = playerHealth > 400 ? 400 : playerHealth;
-        healthBar.rectTransform.sizeDelta = new Vector2(playerHealth * 4, healthBar.rectTransform.rect.size.y);
+        playerState.playerHealth += valueChange;
+        playerState.playerHealth = playerState.playerHealth <= 0 ? 0 : playerState.playerHealth;
+        playerState.playerHealth = playerState.playerHealth > 400 ? 400 : playerState.playerHealth;
+        healthBar.rectTransform.sizeDelta = new Vector2(playerState.playerHealth * 4, healthBar.rectTransform.rect.size.y);
+    }
+
+    public void UpdatePlayerState(PlayerState _playerState)
+    {
+        playerState = _playerState;
+    }
+
+    public float JumpForceMultiplier()
+    {
+        return playerState.jumpForceMultiplier;
     }
 }

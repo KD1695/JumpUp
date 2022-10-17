@@ -8,6 +8,8 @@ public class Ledge : MonoBehaviour
     [SerializeField] BoxCollider topCollider;
     [SerializeField] GameObject health;
 
+    [SerializeField] LedgeSpawner spawnerParent = null;
+
     void Start()
     {
         SetWidth(this.GetComponent<RectTransform>().sizeDelta.x);
@@ -17,9 +19,14 @@ public class Ledge : MonoBehaviour
     {
         if(isTaken)
         {
-            var step = GameState.Instance.GetSpeed() * Time.deltaTime;
+            var step = spawnerParent.LedgeSpeed() * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, transform.position.y-300, 0), step);
         }
+    }
+
+    public void SetParent(LedgeSpawner spawner)
+    {
+        spawnerParent = spawner;
     }
 
     public void SetWidth(float width)
@@ -38,6 +45,7 @@ public class Ledge : MonoBehaviour
             health.SetActive(false);
         this.gameObject.SetActive(_isTaken);
     }
+
     public bool IsTaken()
     {
         return isTaken;

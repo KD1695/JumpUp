@@ -8,6 +8,7 @@ public class LedgeSpawner : MonoBehaviour
     [SerializeField] Ledge ledgePrefab;
     [SerializeField] RectTransform parent;
     [SerializeField] Transform finish;
+    [SerializeField] GameState gameState;
 
     [SerializeField] private List<Ledge> ledgePool = new List<Ledge>();
 
@@ -44,9 +45,15 @@ public class LedgeSpawner : MonoBehaviour
         }
         ledgeObject.transform.localPosition = position;
         ledgeObject.gameObject.SetActive(false);
+        ledgeObject.SetParent(this);
         ledgeObject.SetIsTaken(true);
         ledgeObject.SetWidth(width);
 
         ledgeObject.gameObject.SetActive(true);
+    }
+
+    public float LedgeSpeed()
+    {
+        return gameState.GetSpeed();
     }
 }
