@@ -9,6 +9,7 @@ public class JumpBoost : PowerUp
         PlayerState playerState = new PlayerState();
         playerState.jumpForceMultiplier = (Random.Range(0,2)==0) ? 2 : -2;
         playerState.playerHealth = 0;
+        playerState.resetTimer = Duration;
         UpdatePlayerState(playerState);
     }
 

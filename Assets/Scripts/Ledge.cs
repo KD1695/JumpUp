@@ -7,7 +7,6 @@ public class Ledge : MonoBehaviour
     [SerializeField] bool isTaken = false;
     [SerializeField] BoxCollider topCollider;
     [SerializeField] Transform powerUpParent;
-
     [SerializeField] LedgeSpawner spawnerParent = null;
 
     void Start()

@@ -38,7 +38,7 @@ public class PlayerControls : MonoBehaviour
             other.gameObject.GetComponent<PowerUp>().Activate();
             other.gameObject.SetActive(false);
         }
-        else
+        else if(!gameState.IsPlayerInvincible())
         {
             gameState.ModifyPlayerHealth(-10);
         }

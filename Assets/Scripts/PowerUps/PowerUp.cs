@@ -9,6 +9,7 @@ public abstract class PowerUp : MonoBehaviour
     GameState gameState = null;
     Image image = null;
     [SerializeField] public float SpawnProbability = 0;
+    [SerializeField] public float Duration = 0;
 
     /// <summary>
     /// Define power effect in this function

@@ -12,7 +12,9 @@ public class GameState : MonoBehaviour
     //Game state variables
     float distanceSinceLastFloor = 0;
     int currentFloorCount = 0;
+    float powerUpTimer = 0;
     PlayerState playerState = new PlayerState();
+    PlayerState previousState;
     
     [SerializeField] float levelSpeedBase = 5.0f;
     [SerializeField] float distanceBetweenFloors = 10.0f;
@@ -44,6 +46,16 @@ public class GameState : MonoBehaviour
             IncrementCurrentFloor();
         }
 
+        if(powerUpTimer > 0)
+        {
+            powerUpTimer -= Time.deltaTime;
+        }
+        else if(powerUpTimer < 0)
+        {
+            powerUpTimer = 0;
+            playerState = previousState;
+        }
+
         if(playerState.playerHealth <= 0 && gameOver.activeSelf == false)
         {
             gameOver.SetActive(true);
@@ -72,15 +84,23 @@ public class GameState : MonoBehaviour
 
     public void UpdatePlayerState(PlayerState _playerState)
     {
+        previousState = playerState;
+
         playerState.jumpForceMultiplier += _playerState.jumpForceMultiplier;
         if (playerState.jumpForceMultiplier < 1)
             playerState.jumpForceMultiplier = 1;
         if (_playerState.replaceHealth)
             playerState.playerHealth = _playerState.playerHealth;
+        powerUpTimer = _playerState.resetTimer;
     }
 
     public float JumpForceMultiplier()
     {
         return playerState.jumpForceMultiplier;
+    }
+
+    public bool IsPlayerInvincible()
+    {
+        return playerState.isInvincible;
     }
 }
