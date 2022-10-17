@@ -645,6 +645,7 @@ MonoBehaviour:
   - {fileID: 991459951}
   powerUps:
   - {fileID: 2521892143934363132, guid: e83d46dd7aeba184283627d165ca312c, type: 3}
+  - {fileID: 8812627429839329376, guid: bcca2c6752c706946b184a6cb0a77d99, type: 3}
 --- !u!1001 &471275960
 PrefabInstance:
   m_ObjectHideFlags: 0
