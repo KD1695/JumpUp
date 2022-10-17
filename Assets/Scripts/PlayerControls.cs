@@ -46,6 +46,7 @@ public class PlayerControls : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        gameState.ModifyPlayerHealth(-10);
+        if (!gameState.IsPlayerInvincible())
+            gameState.ModifyPlayerHealth(-10);
     }
 }

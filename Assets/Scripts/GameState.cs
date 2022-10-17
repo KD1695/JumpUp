@@ -14,7 +14,7 @@ public class GameState : MonoBehaviour
     int currentFloorCount = 0;
     float powerUpTimer = 0;
     PlayerState playerState = new PlayerState();
-    PlayerState previousState;
+    PlayerState previousState = null;
     
     [SerializeField] float levelSpeedBase = 5.0f;
     [SerializeField] float distanceBetweenFloors = 10.0f;
@@ -50,9 +50,9 @@ public class GameState : MonoBehaviour
         {
             powerUpTimer -= Time.deltaTime;
         }
-        else if(powerUpTimer < 0)
+        else if(powerUpTimer < 0 && previousState != null)
         {
-            powerUpTimer = 0;
+             powerUpTimer = 0;
             playerState = previousState;
         }
 
@@ -79,7 +79,7 @@ public class GameState : MonoBehaviour
         playerState.playerHealth += valueChange;
         playerState.playerHealth = playerState.playerHealth <= 0 ? 0 : playerState.playerHealth;
         playerState.playerHealth = playerState.playerHealth > 400 ? 400 : playerState.playerHealth;
-        healthBar.rectTransform.sizeDelta = new Vector2(playerState.playerHealth * 4, healthBar.rectTransform.rect.size.y);
+        healthBar.rectTransform.sizeDelta = new Vector2(playerState.playerHealth, healthBar.rectTransform.rect.size.y);
     }
 
     public void UpdatePlayerState(PlayerState _playerState)
@@ -92,6 +92,7 @@ public class GameState : MonoBehaviour
         if (_playerState.replaceHealth)
             playerState.playerHealth = _playerState.playerHealth;
         powerUpTimer = _playerState.resetTimer;
+        playerState.isInvincible = _playerState.isInvincible;
     }
 
     public float JumpForceMultiplier()
