@@ -11,6 +11,7 @@ public class LedgeSpawner : MonoBehaviour
     [SerializeField] GameState gameState;
 
     [SerializeField] private List<Ledge> ledgePool = new List<Ledge>();
+    [SerializeField] private List<PowerUp> powerUps = new List<PowerUp>();
 
     void Start()
     {
@@ -48,7 +49,17 @@ public class LedgeSpawner : MonoBehaviour
         ledgeObject.SetParent(this);
         ledgeObject.SetIsTaken(true);
         ledgeObject.SetWidth(width);
+        foreach (var powerUp in powerUps)
+        {
+            float prob = Random.Range(0f, 0.999f);
+            Debug.Log(prob + " " + powerUp.SpawnProbability);
+            if(prob <= powerUp.SpawnProbability)
+            {
 
+                var power = GameObject.Instantiate(powerUp, ledgeObject.PowerUpParent());
+                power.SetGameState(gameState);
+            }
+        }
         ledgeObject.gameObject.SetActive(true);
     }
 

@@ -8,14 +8,14 @@ public abstract class PowerUp : MonoBehaviour
 {
     GameState gameState = null;
     Image image = null;
-    [SerializeField] public float SpawnProbability { get; } = 0;
+    [SerializeField] public float SpawnProbability = 0;
 
     /// <summary>
     /// Define power effect in this function
     /// </summary>
     public abstract void Activate();
     
-    protected void Start()
+    protected void Awake()
     {
         if(image == null)
         {
@@ -23,7 +23,7 @@ public abstract class PowerUp : MonoBehaviour
         }
     }
 
-    protected void SetGameState(GameState _gameState)
+    public void SetGameState(GameState _gameState)
     {
         gameState = _gameState;
     }

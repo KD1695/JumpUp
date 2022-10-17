@@ -6,7 +6,7 @@ public class Ledge : MonoBehaviour
 {
     [SerializeField] bool isTaken = false;
     [SerializeField] BoxCollider topCollider;
-    [SerializeField] GameObject health;
+    [SerializeField] Transform powerUpParent;
 
     [SerializeField] LedgeSpawner spawnerParent = null;
 
@@ -39,15 +39,16 @@ public class Ledge : MonoBehaviour
     public void SetIsTaken(bool _isTaken)
     {
         isTaken = _isTaken;
-        if (Random.Range(0, 10) < 2 && _isTaken)
-            health.SetActive(_isTaken);
-        else
-            health.SetActive(false);
         this.gameObject.SetActive(_isTaken);
     }
 
     public bool IsTaken()
     {
         return isTaken;
+    }
+
+    public Transform PowerUpParent()
+    {
+        return powerUpParent;
     }
 }
