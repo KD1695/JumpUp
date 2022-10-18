@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
 {
+    [SerializeField] GameObject super;
     [SerializeField] Rigidbody body;
     [SerializeField] GameState gameState;
     void Start()
@@ -28,6 +29,15 @@ public class PlayerControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             body.AddForce(new Vector3(0, 2500 * gameState.JumpForceMultiplier(), 0));
+        }
+
+        if (gameState.IsPlayerInvincible() && !super.activeSelf)
+        {
+            super.SetActive(true);
+        }
+        else if(!gameState.IsPlayerInvincible() && super.activeSelf)
+        {
+            super.SetActive(false);
         }
     }
 
