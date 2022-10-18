@@ -9,7 +9,8 @@ public abstract class PowerUp : MonoBehaviour
     GameState gameState = null;
     Image image = null;
     [SerializeField] public float SpawnProbability = 0;
-    [SerializeField] public float Duration = 0;
+    [SerializeField] protected float Duration = 0;
+    [SerializeField] protected AudioClip audioClip;
 
     /// <summary>
     /// Define power effect in this function
@@ -41,5 +42,10 @@ public abstract class PowerUp : MonoBehaviour
     {
         ModifyPlayerHealth(_playerState.playerHealth);
         gameState.UpdatePlayerState(_playerState);
+    }
+
+    protected void PlayClip()
+    {
+        AudioManager.Instance.PlayAudioClip(audioClip);
     }
 }

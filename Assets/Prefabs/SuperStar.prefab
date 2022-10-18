@@ -127,3 +127,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnProbability: 0.1
   Duration: 7
+  audioClip: {fileID: 8300000, guid: 0f1752bac4a8e5a49adeb92a41e5c9cb, type: 3}

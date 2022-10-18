@@ -6,6 +6,7 @@ public class HealthDrop : PowerUp
 {
     public override void Activate()
     {
+        PlayClip();
         ModifyPlayerHealth(15);
     }
 
