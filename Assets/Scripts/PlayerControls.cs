@@ -21,6 +21,10 @@ public class PlayerControls : MonoBehaviour
         {
             body.AddForce(new Vector3(-30, 0, 0));
         }
+        if (Input.GetKey(KeyCode.S))
+        {
+            body.AddForce(new Vector3(0, -10, 0));
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             body.AddForce(new Vector3(0, 2500 * gameState.JumpForceMultiplier(), 0));
